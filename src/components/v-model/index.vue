@@ -1,25 +1,21 @@
 <template>
     <div>
-        <p>{{name}}</p>
-        <input type="text" v-model="name" @input="onModelInput" />
-        <p>{{value}}</p>
-        <input
+        <el-input
             type="text"
             v-bind:value="value"
             v-on:input="onInput"
             @compositionstart="onCompositionstart"
             @compositionend="onCompositionend"
-        />
+        ></el-input>
     </div>
 </template>
 <script>
 export default {
     data() {
         return {
-            name: 'lilei',
-            value: 'lilei',
+            value: '',
             composing: false
-        };
+        }; z
     },
     methods: {
         onModelInput(ev) {
@@ -30,7 +26,8 @@ export default {
             if (this.composing) {
                 return;
             }
-            this.value = ev.target.value;
+            const value = ev.target.value;
+            this.value = value;
         },
         onCompositionstart() {
             this.composing = true
