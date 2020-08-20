@@ -7,10 +7,8 @@
                 <el-input v-model="form.age_1" v-formatNumber="{type: 'integer'}"></el-input>
             </el-col>
             <el-col :span="6">
-                <el-input
-                    v-model="form.age_2"
-                    v-formatNumber="{type: 'gold', max: 999999, compareLength: true, decimalPlaces: 1}"
-                ></el-input>
+                <el-input v-model="form.age_2"
+                    v-formatNumber="{type: 'gold', max: 999999, compareLength: true, decimalPlaces: 1}"></el-input>
             </el-col>
             <el-col :span="6">
                 <el-input v-model.number="form.age_3" placeholder />
@@ -27,10 +25,8 @@
         </el-row>
         <el-row :gutter="10">
             <el-col :span="6" v-for="(item, index) of formArr" :key="index">
-                <el-input
-                    v-model="item.age"
-                    v-formatNumber="{type: 'gold', max: 999, compareLength: true, decimalPlaces: 1}"
-                ></el-input>
+                <el-input v-model="item.age"
+                    v-formatNumber="{type: 'gold', max: 999, compareLength: true, decimalPlaces: 1}"></el-input>
             </el-col>
             <el-col :span="6">
                 <el-button type="primary" @click="onClickArr">TEST</el-button>
@@ -41,11 +37,17 @@
                 <p>{{JSON.stringify(formArr)}}</p>
             </el-col>
         </el-row>
+        <el-row :gutter="10">
+            <el-col>
+                <div id="barcode"></div>
+            </el-col>
+        </el-row>
     </div>
 </template>
 
 <script>
-
+// import $ from 'jquery'
+import '@/utils/plugin/JsBarcode.all.js'
 export default {
     data() {
         return {
@@ -55,9 +57,16 @@ export default {
                 age_3: 17
             },
             formArr: []
-        };
+        }
     },
-    created() {
+    created() {},
+    mounted() {
+        JsBarcode('#barcode', 'P200730000001tt', {
+            width: 1.5,
+            height: 40,
+            fontSize: 14,
+            marginBottom: 5
+        })
     },
     methods: {
         onClick() {
@@ -67,5 +76,5 @@ export default {
             this.formArr.push({ age: 1 })
         }
     }
-};
+}
 </script>
